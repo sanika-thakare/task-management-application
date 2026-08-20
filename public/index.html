@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow - Task Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="toast"></div>
+
+  <section id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <div class="brand">Task<span>Flow</span></div>
+      <p class="subtitle">Secure, simple and real-time task management.</p>
+
+      <div class="tabs">
+        <button id="login-tab" class="tab active">Login</button>
+        <button id="register-tab" class="tab">Register</button>
+      </div>
+
+      <form id="auth-form">
+        <div id="name-group" class="field hidden">
+          <label>Name</label>
+          <input id="name" type="text" placeholder="Your name" />
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Minimum 6 characters" required />
+        </div>
+
+        <button class="primary full" type="submit" id="auth-submit">Login</button>
+      </form>
+
+      <p id="auth-message" class="message"></p>
+    </div>
+  </section>
+
+  <section id="app-screen" class="hidden">
+    <header class="topbar">
+      <div class="brand">Task<span>Flow</span></div>
+      <div class="user-area">
+        <span id="user-name"></span>
+        <button id="logout-btn" class="outline">Logout</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="welcome-row">
+        <div>
+          <h1>My Tasks</h1>
+          <p>Organize your work and stay productive.</p>
+        </div>
+        <button id="add-btn" class="primary">+ Add Task</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b id="total-count">0</b><span>Total</span></div>
+        <div class="stat"><b id="pending-count">0</b><span>Pending</span></div>
+        <div class="stat"><b id="progress-count">0</b><span>In Progress</span></div>
+        <div class="stat"><b id="completed-count">0</b><span>Completed</span></div>
+      </div>
+
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search tasks..." />
+        <select id="status-filter">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+        <select id="priority-filter">
+          <option value="all">All Priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+
+      <div id="task-list" class="task-grid"></div>
+      <div id="empty" class="empty hidden">No tasks found. Click “Add Task” to create one.</div>
+    </main>
+  </section>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modal-title">Add Task</h2>
+        <button id="close-modal" class="close">×</button>
+      </div>
+
+      <form id="task-form">
+        <input id="task-id" type="hidden" />
+
+        <div class="field">
+          <label>Task Title</label>
+          <input id="task-title" required placeholder="e.g. Complete internship project" />
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <textarea id="task-description" rows="3" placeholder="Describe the task"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Priority</label>
+            <select id="task-priority">
+              <option value="high">High</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Status</label>
+            <select id="task-status">
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>Category</label>
+            <input id="task-category" placeholder="College / Work / Personal" />
+          </div>
+
+          <div class="field">
+            <label>Due Date</label>
+            <input id="task-due" type="date" />
+          </div>
+        </div>
+
+        <button class="primary full" type="submit">Save Task</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
